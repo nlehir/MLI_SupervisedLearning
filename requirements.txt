@@ -1,0 +1,11 @@
+numpy
+pandas
+black
+matplotlib
+termcolor
+ipdb
+jupyterlab
+mypy
+pandas
+sklearn
+wikipedia
