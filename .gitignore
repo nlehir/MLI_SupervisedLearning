@@ -14,3 +14,5 @@ code/.local/*
 code/__pycache__/*
 code/.bash_history
 code/tags
+
+code/linear_regression/arch

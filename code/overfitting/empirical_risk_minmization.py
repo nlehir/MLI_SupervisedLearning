@@ -101,7 +101,7 @@ def plot_polynom_sample(polynom, x_train, y_train, test_error, train_error):
     plt.close()
 
 
-max_degree = 27
+max_degree = 50
 test_errors = list()
 train_errors = list()
 for degree in range(max_degree):

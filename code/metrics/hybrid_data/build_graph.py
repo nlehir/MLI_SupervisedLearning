@@ -47,7 +47,6 @@ def compute_dissimilarity(player_1_id, player_2_id):
     We must handle it differently than quantitative
     attributes.
     """
-    __import__('ipdb').set_trace()
     player_1_note = dataframe.loc[player_1_id][1]
     player_2_note = dataframe.loc[player_2_id][1]
 
@@ -60,7 +59,7 @@ def compute_dissimilarity(player_1_id, player_2_id):
     if player_1_meal == player_2_meal:
         dissimilarity_meal = 0
     else:
-        dissimilarity_meal = 1
+        dissimilarity_meal = 15
 
     # we build a hybrid dissimilarity
     dissimilarity = math.sqrt(
