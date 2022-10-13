@@ -11,10 +11,9 @@ parameters = {"alpha": [1, 10], "solver": ("svd", "lsqr")}
 
 # load estimator object
 ridge = Ridge()
-estimator = GridSearchCV(ridge, parameters)
+grid_search_fitted = GridSearchCV(ridge, parameters)
 
 # Fit inputs to outputs
-estimator.fit(X, y)
+grid_search_fitted.fit(X, y)
 
-print(f"best estimator : {estimator.best_estimator_}")
-__import__('ipdb').set_trace()
+print(f"best estimator : {grid_search_fitted.best_estimator_}")
