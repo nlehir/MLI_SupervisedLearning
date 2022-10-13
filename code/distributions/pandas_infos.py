@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the data to./ a pandas dataframe
-df = pd.read_csv("./mysterious_distro_3.csv")
+df = pd.read_csv("./distribution_3.csv")
 
 # general info on the dataframe
 print('---\ngeneral info on the dataframe')

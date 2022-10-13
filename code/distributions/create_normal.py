@@ -5,7 +5,7 @@ Create a dummy csv
 import csv
 import numpy as np
 
-file_name = 'mysterious_distro_1.csv'
+file_name = 'distribution_1.csv'
 
 mean = 4
 std_dev = 1

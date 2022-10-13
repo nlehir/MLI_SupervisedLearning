@@ -6,7 +6,7 @@ import csv
 import random
 import numpy as np
 
-file_name = 'mysterious_distro_2.csv'
+file_name = 'distribution_2.csv'
 
 mean_1 = 4
 std_dev_1 = 1
