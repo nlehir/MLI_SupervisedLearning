@@ -10,7 +10,7 @@ fish_class = np.load("data/fish_class.npy")
 feature_names = ["length", "weight"]
 class_names = ["tuna", "salmon"]
 
-max_depth = 2
+max_depth = 100
 classifier = tree.DecisionTreeClassifier(max_depth=max_depth, criterion="entropy")
 classifier = classifier.fit(fish_features, fish_class)
 

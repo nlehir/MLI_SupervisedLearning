@@ -13,3 +13,4 @@ wikipedia
 torch
 tensorflow
 pygraphviz
+graphviz
