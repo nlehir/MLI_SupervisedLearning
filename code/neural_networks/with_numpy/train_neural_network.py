@@ -1,7 +1,7 @@
 """
 In this script a neural network tries to fit randomly generated data
 """
-# import plot_net
+import plot_net
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,10 +9,10 @@ from utils import prediction_error
 
 
 # set hyperparameters
-hidden_dim = 2
-Learning_rate = 1e-7
-Nb_steps = 500000
-Nb_plotted_steps = 500
+hidden_dim = 6
+Learning_rate = 1e-5
+Nb_steps = 1000
+Nb_plotted_steps = 20
 
 # select the data
 noise_std_dev = 0.05
@@ -46,23 +46,22 @@ def train_neural_net(x_train: np.ndarray, y_train: np.ndarray, hidden_dim: int):
     losses = list()
     steps = list()
     for step in range(Nb_steps):
-        # ----------------------
-        # FORWARD PASS
+        # forward pass
         # Prediction of the network for a given input x
-        hh = x_train.dot(w1)
+        hh = x_train @ w1
         h_relu = np.maximum(hh, 0)
-        y_pred = h_relu.dot(w2)
+        y_pred = h_relu @ w2
 
-        # ----------------------
-        # LOSS FUNCTION
+        # loss function
         # Here we use the squared error loss
         loss = np.square(y_pred - y_train).sum()
 
         # ----------------------
         # Plot the network and the loss
         if step % (Nb_steps / Nb_plotted_steps) == 0:
+            print("plot net")
             print(step, loss)
-            # graph_name = f"net_{step}"
+            graph_name = f"net_{step}"
 
             # keep storing the loss and the steps
             losses.append(loss)
@@ -86,19 +85,19 @@ def train_neural_net(x_train: np.ndarray, y_train: np.ndarray, hidden_dim: int):
 
             # ----------------------
             # Print the network with gaphviz
-            # plot_net.show_net(
-            #     step,
-            #     w1,
-            #     w2,
-            #     input_dim,
-            #     hidden_dim,
-            #     output_dim,
-            #     figname,
-            #     dir_name,
-            #     graph_name,
-            #     loss,
-            #     Learning_rate,
-            # )
+            plot_net.show_net(
+                step,
+                w1,
+                w2,
+                input_dim,
+                hidden_dim,
+                output_dim,
+                figname,
+                dir_name,
+                graph_name,
+                loss,
+                Learning_rate,
+            )
 
         # backpropagation
         # computation of the gradients of the loss function
@@ -113,6 +112,11 @@ def train_neural_net(x_train: np.ndarray, y_train: np.ndarray, hidden_dim: int):
         # update the weigths
         w1 -= Learning_rate * grad_w1
         w2 -= Learning_rate * grad_w2
+
+        # test_error = prediction_error(x_test, y_test, w1, w2)
+        # train_error = prediction_error(x_train, y_train, w1, w2)
+        # if test_error > 2 * train_error:
+        #     __import__("ipdb").set_trace()
 
     # save the plot of the loss function
     plt.close()

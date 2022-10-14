@@ -18,12 +18,6 @@ loaded_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', m
 print("")
 
 
-# print("evaluate the model")
-# loss, accuracy = loaded_model.evaluate(x_test, y_test)
-# print("loss: {}".format(loss))
-# print("accuracy: {} %".format(100*accuracy))
-
-
 def predit_test_point(data_index, x_test, y_test):
     """
         text if the model predicts
@@ -52,7 +46,7 @@ def predit_test_point(data_index, x_test, y_test):
     image = x_test[data_index][:, :, 0]
     plt.imshow(image, cmap="Greys")
     plt.title(title)
-    plt.savefig("images/prediction_{data_index}.pdf")
+    plt.savefig(f"images/prediction_{data_index}.pdf")
     plt.close()
 
 

@@ -48,7 +48,6 @@ ax.plot_wireframe(X, Y, S, rstride=5, cstride=5, alpha=0.3)
 plt.xlabel("x")
 plt.ylabel("y")
 plt.savefig("function_to_minimize_1.pdf")
-# plt.close()
 
 # initialize the optimization
 scope = 25
