@@ -1,4 +1,5 @@
 numpy
+pydot
 pandas
 black
 matplotlib
@@ -9,3 +10,6 @@ mypy
 pandas
 sklearn
 wikipedia
+torch
+tensorflow
+pygraphviz

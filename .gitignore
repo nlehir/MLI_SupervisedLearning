@@ -19,3 +19,5 @@ code/linear_regression/arch
 
 code/gradients/function_1/*pdf
 code/gradients/function_2/*pdf
+
+code/neural_networks/mnist/data/
