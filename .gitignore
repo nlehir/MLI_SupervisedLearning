@@ -2,7 +2,7 @@
 *.swp
 *.swo
 
-env/*
+env/
 
 *__pycache__*
 *mypy_cache*
@@ -14,6 +14,8 @@ code/.local/*
 code/__pycache__/*
 code/.bash_history
 code/tags
+code/solutions/
+code/exercises/
 
 code/linear_regression/arch
 
@@ -21,6 +23,3 @@ code/gradients/function_1/*pdf
 code/gradients/function_2/*pdf
 
 code/neural_networks/mnist/data/*npy
-
-classification
-regression

@@ -1,6 +1,7 @@
 black
 graphviz
 ipdb
+isort
 jupyterlab
 matplotlib
 mypy
@@ -10,6 +11,7 @@ optuna-dashboard
 pandas
 pandas
 pydot
+seaborn
 sklearn
 termcolor
 wikipedia
