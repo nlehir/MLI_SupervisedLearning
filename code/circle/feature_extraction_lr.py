@@ -14,20 +14,20 @@ y = np.load("y.npy")
 """
 Edit from here
 """
-phi_X = X
+phi_X = (X[:, 0]**2 + X[:, 1]**2).reshape(-1, 1)
 
 # split the X into training and test
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.33)
+phi_X_train, phi_X_test, y_train, y_test = train_test_split(
+    phi_X, y, test_size=0.33)
 
-clf = LogisticRegression().fit(X_train, y_train.ravel())
+clf = LogisticRegression().fit(phi_X_train, y_train.ravel())
 print("train")
-print(clf.score(X_train, y_train))
+print(clf.score(phi_X_train, y_train))
 print("test")
-print(clf.score(X_test, y_test))
+print(clf.score(phi_X_test, y_test))
 print("theta")
 print(clf.coef_[0])
 print("intercept")
 print(clf.intercept_)
 
-print(clf.predict(X))
+print(clf.predict(phi_X))

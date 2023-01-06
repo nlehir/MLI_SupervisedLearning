@@ -2,33 +2,28 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-radius = 1
+threshold = 1
+overlap = 0.1
 
-def inside(radius):
-    """TODO: Docstring for inside.
-
-    :radius: TODO
-    :returns: TODO
-
+def inside(threshold):
     """
-    rr = np.random.uniform(0, radius, 100)
+    Generate data closer to the origin
+    """
+    radius = np.random.uniform(0, (1 + overlap) * threshold, 100)
     theta = np.random.uniform(0, 2*math.pi, 100)
-    xpos = rr * np.cos(theta)
-    ypos = rr * np.sin(theta)
+    xpos = radius * np.cos(theta)
+    ypos = radius * np.sin(theta)
     return xpos, ypos
 
 
-def outside(radius):
-    """TODO: Docstring for inside.
-
-    :radius: TODO
-    :returns: TODO
-
+def outside(threshold):
     """
-    rr = np.random.uniform(radius, 3*radius, 200)
+    Generate data further from the origin
+    """
+    radius = np.random.uniform((1 - overlap) * threshold, 3*threshold, 200)
     theta = np.random.uniform(0, 2*math.pi, 200)
-    xpos = rr * np.cos(theta)
-    ypos = rr * np.sin(theta)
+    xpos = radius * np.cos(theta)
+    ypos = radius * np.sin(theta)
     return xpos, ypos
 
 xposin, yposin = inside(1)
