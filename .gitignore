@@ -3,6 +3,7 @@
 *.swo
 
 env/
+env3_9/
 
 *__pycache__*
 *mypy_cache*

@@ -1,7 +1,7 @@
 """
 In this script a neural network tries to fit randomly generated data
 """
-import plot_net
+# import plot_net
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,13 +9,13 @@ from utils import prediction_error
 
 
 # set hyperparameters
-hidden_dim = 6
+hidden_dim = 3
 Learning_rate = 1e-5
-Nb_steps = 1000
-Nb_plotted_steps = 20
+Nb_steps = 5000
+Nb_plotted_steps = 50
 
 # select the data
-noise_std_dev = 0.05
+noise_std_dev = 0.00
 
 # load the data
 x_train = np.load(f"data/training_inputs_std_{noise_std_dev}.npy")
@@ -85,19 +85,19 @@ def train_neural_net(x_train: np.ndarray, y_train: np.ndarray, hidden_dim: int):
 
             # ----------------------
             # Print the network with gaphviz
-            plot_net.show_net(
-                step,
-                w1,
-                w2,
-                input_dim,
-                hidden_dim,
-                output_dim,
-                figname,
-                dir_name,
-                graph_name,
-                loss,
-                Learning_rate,
-            )
+            # plot_net.show_net(
+            #     step,
+            #     w1,
+            #     w2,
+            #     input_dim,
+            #     hidden_dim,
+            #     output_dim,
+            #     figname,
+            #     dir_name,
+            #     graph_name,
+            #     loss,
+            #     Learning_rate,
+            # )
 
         # backpropagation
         # computation of the gradients of the loss function
