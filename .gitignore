@@ -18,6 +18,8 @@ code/tags
 code/solutions/
 code/exercises/
 
+code/cart/*/*.pdf
+
 code/linear_regression/arch
 
 code/gradients/function_1/*pdf
