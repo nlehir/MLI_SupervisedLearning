@@ -20,6 +20,8 @@ code/exercises/
 
 code/cart/*/*.pdf
 
+code/**/*.db
+
 code/linear_regression/arch
 
 code/gradients/function_1/*pdf
