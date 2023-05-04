@@ -1,6 +1,11 @@
-import os
-import numpy as np
+"""
+Generate toy data for d dimensional
+linear regression
+"""
 
+import os
+
+import numpy as np
 
 
 def generate_input_data(sigma: float, n: int, d: int, r) -> np.ndarray:
@@ -43,27 +48,32 @@ def generate_output_data(X, theta_star, sigma, r):
     return y
 
 
-# number of samples
-n = 400
-d = 200
+def main():
+    # number of samples
+    n = 400
+    d = 200
 
-#  variance
-sigma = 4
+    #  variance
+    sigma = 2
 
-# use a seed to have consistent resutls
-r = np.random.RandomState(4)
+    # use a seed to have consistent resutls
+    r = np.random.RandomState(4)
 
-# generate input data
-X = generate_input_data(sigma, n, d, r)
-X_path = os.path.join("data", "X")
-np.save(X_path, X)
+    # generate input data
+    X = generate_input_data(sigma, n, d, r)
+    X_path = os.path.join("data", "X")
+    np.save(X_path, X)
 
-# generate theta_star
-theta_star = r.rand(d, 1)
-theta_star_path = os.path.join("data", "theta_star")
-np.save(theta_star_path, theta_star)
+    # generate theta_star
+    theta_star = r.rand(d, 1)
+    theta_star_path = os.path.join("data", "theta_star")
+    np.save(theta_star_path, theta_star)
 
-# generate output data
-y = generate_output_data(X, theta_star, sigma, r)
-y_path = os.path.join("data", "y")
-np.save(y_path, y)
+    # generate output data
+    y = generate_output_data(X, theta_star, sigma, r)
+    y_path = os.path.join("data", "y")
+    np.save(y_path, y)
+
+
+if __name__ == "__main__":
+    main()
