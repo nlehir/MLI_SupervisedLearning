@@ -13,5 +13,6 @@ pandas
 pydot
 seaborn
 sklearn
+snakeviz
 termcolor
 wikipedia
