@@ -55,13 +55,15 @@ x_iter = np.random.uniform(-scope, scope)
 y_iter = np.random.uniform(-scope, scope)
 
 # iterate the gradient algorithm
-N_iterations = 100
+N_iterations = int(1e3)
 gamma = 0.01
 for iteration in range(N_iterations):
     _xgradient = xgradient(x_iter, y_iter)
     _ygradient = ygradient(x_iter, y_iter)
     x_iter = x_iter - gamma * _xgradient
     y_iter = y_iter - gamma * _ygradient
+    # x_iter = np.clip(x_iter, -2, 2)
+    # y_iter = np.clip(y_iter, -2, 2)
     z = function_to_minimize(x_iter, y_iter)
     if iteration % 5 == 0:
         ax.scatter(x_iter, y_iter, z, marker="x", color="red")

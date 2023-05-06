@@ -67,49 +67,46 @@ plt.savefig("function_to_minimize_2.pdf")
 
 # initialize the optimization
 scope = 30
-x_star = np.random.uniform(-scope, scope)
-y_star = np.random.uniform(-scope, scope)
-N_iterations = 50000
+x_iter = np.random.uniform(-scope, scope)
+y_iter = np.random.uniform(-scope, scope)
+N_iterations = 5000
 
 # set learning rate
-gamma = 0.0005
+gamma = 0.005
 
 # initialize lists to store the results
-x_star_store = list()
-y_star_store = list()
-z_star_store = list()
-# start optimization
+x_iter_store = list()
+y_iter_store = list()
+z_iter_store = list()
+# itert optimization
 for iteration in range(N_iterations):
-    _xgradient = xgradient(x_star, y_star)
-    _ygradient = ygradient(x_star, y_star)
-    x_star = x_star - gamma * _xgradient
-    y_star = y_star - gamma * _ygradient
-    z = function_to_minimize(x_star, y_star)
+    _xgradient = xgradient(x_iter, y_iter)
+    _ygradient = ygradient(x_iter, y_iter)
+    x_iter = x_iter - gamma * _xgradient
+    y_iter = y_iter - gamma * _ygradient
+    z = function_to_minimize(x_iter, y_iter)
     # do not plot all the iterations
     if iteration < 40000:
         if iteration % 1000 == 0:
-            x_star_store.append(x_star)
-            y_star_store.append(y_star)
-            z_star_store.append(z)
-            ax.plot(x_star_store, y_star_store, z_star_store, color="darkred")
+            x_iter_store.append(x_iter)
+            y_iter_store.append(y_iter)
+            z_iter_store.append(z)
+            ax.plot(x_iter_store, y_iter_store, z_iter_store, color="darkred")
             plt.savefig(f"function_2/{iteration}.pdf")
-            print(f"\niteration {iteration}")
-            print(f"x* : {x_star:.2f} y* : {y_star:.2f}  value : {z:.2f}")
+            print(f"it {iteration}, x : {x_iter:.2f} y : {y_iter:.2f}  value : {z:.2f}")
     elif iteration < 35000:
         if iteration % 100 == 0:
-            x_star_store.append(x_star)
-            y_star_store.append(y_star)
-            z_star_store.append(z)
-            ax.plot(x_star_store, y_star_store, z_star_store, color="darkred")
+            x_iter_store.append(x_iter)
+            y_iter_store.append(y_iter)
+            z_iter_store.append(z)
+            ax.plot(x_iter_store, y_iter_store, z_iter_store, color="darkred")
             plt.savefig(f"function_2/{iteration}.pdf")
-            print(f"\niteration {iteration}")
-            print(f"x* : {x_star:.2f} y* : {y_star:.2f}  value : {z:.2f}")
+            print(f"it {iteration}, x : {x_iter:.2f} y : {y_iter:.2f}  value : {z:.2f}")
     else:
         if iteration % 50 == 0:
-            x_star_store.append(x_star)
-            y_star_store.append(y_star)
-            z_star_store.append(z)
-            ax.plot(x_star_store, y_star_store, z_star_store, color="darkred")
+            x_iter_store.append(x_iter)
+            y_iter_store.append(y_iter)
+            z_iter_store.append(z)
+            ax.plot(x_iter_store, y_iter_store, z_iter_store, color="darkred")
             plt.savefig(f"function_2/{iteration}.pdf")
-            print(f"\niteration {iteration}")
-            print(f"x* : {x_star:.2f} y* : {y_star:.2f}  value : {z:.2f}")
+            print(f"it {iteration}, x : {x_iter:.2f} y : {y_iter:.2f}  value : {f(x,y):.2f}")
