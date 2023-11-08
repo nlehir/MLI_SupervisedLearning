@@ -1,3 +1,9 @@
+"""
+Find the optimal parameters for a 1D linear regression
+and plot the prediction made by this estimator.
+"""
+
+
 import os
 
 import matplotlib.pyplot as plt

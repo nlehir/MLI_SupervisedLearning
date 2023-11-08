@@ -1,6 +1,6 @@
 """
 fit the noisy data by empirical risk minimization,
-using polynomila functions of various degrees.
+using polynomial functions of various degrees.
 """
 
 import csv

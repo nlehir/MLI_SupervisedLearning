@@ -1,6 +1,6 @@
 import numpy as np
 
-sigma = 0.0
+sigma = 0.5
 
 
 def oracle(x):

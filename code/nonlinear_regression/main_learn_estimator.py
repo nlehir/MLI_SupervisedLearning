@@ -7,6 +7,8 @@
 import csv
 import math
 
+from typing import Callable
+
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.optimize
@@ -49,12 +51,8 @@ def main():
 
     # train test split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
-    # X_train.sort()
-    # X_test.sort()
-    # y_train.sort()
-    # y_test.sort()
 
-    def fit_sinus(X, y):
+    def fit_sinus(X, y) -> Callable:
         """
         function used to fit a sinusoidal function to the data.
         :param X: array of time steps
