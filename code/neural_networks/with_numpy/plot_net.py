@@ -1,6 +1,7 @@
-import pygraphviz as pgv
-import os
 import math
+import os
+
+import pygraphviz as pgv
 
 
 # We use a weight_normalisation to make visualization clearer
@@ -43,9 +44,9 @@ def show_net(
     Learning_rate,
 ):
     """
-    Function to print a screenshot of a neural network at a given 
+    Function to print a screenshot of a neural network at a given
     optimization step
-    In these examples we will use networks with only one hidden layer, 
+    In these examples we will use networks with only one hidden layer,
     however the method can be applied to bigger networks.
     """
     # Initialiaze a graph object from the pygraphviz lib.

@@ -1,33 +1,26 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import ipdb
+import os
+import numpy as np
 from keras.models import model_from_json
 
-y_test = np.load("data/y_test.npy")
-x_test = np.load("data/x_test.npy")
-x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
 
-print("load the model")
-json_file = open('model.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-loaded_model = model_from_json(loaded_model_json)
-# load weights into new model
-loaded_model.load_weights("model.h5")
-loaded_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-print("")
-
-
-def predit_test_point(data_index, x_test, y_test):
+def predict_test_point(
+        data_index: int,
+        x_test: np.ndarray,
+        y_test: np.ndarray,
+        loaded_model,
+        ) -> None:
     """
-        text if the model predicts
-        the correct class
-        for a given datapoint from
-        the mnist database.
+    test if the model predicts
+    the correct class
+    for a given datapoint from
+    the mnist database.
     """
     nb_test_data = x_test.shape[0]
     if data_index > nb_test_data:
-        raise ValueError(f"data index too large : only {nb_test_data} test samples available")
+        raise ValueError(
+            f"data index too large : only {nb_test_data} test samples available"
+        )
 
     print(f"test data point {data_index}")
     true_label = y_test[data_index]
@@ -46,15 +39,42 @@ def predit_test_point(data_index, x_test, y_test):
     image = x_test[data_index][:, :, 0]
     plt.imshow(image, cmap="Greys")
     plt.title(title)
-    plt.savefig(f"images/prediction_{data_index}.pdf")
+    plt.savefig(os.path.join("images", f"prediction_{data_index}.pdf"))
     plt.close()
 
+def main() -> None:
+    y_test = np.load("data/y_test.npy")
+    x_test = np.load("data/x_test.npy")
+    x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
 
-predit_test_point(1278, x_test, y_test)
-predit_test_point(178, x_test, y_test)
-predit_test_point(18, x_test, y_test)
-predit_test_point(17, x_test, y_test)
-predit_test_point(278, x_test, y_test)
-predit_test_point(7278, x_test, y_test)
-predit_test_point(9278, x_test, y_test)
-predit_test_point(4275, x_test, y_test)
+    print("load the model")
+    json_file = open("model.json", "r")
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    # load weights into new model
+    loaded_model.load_weights("model.h5")
+    loaded_model.compile(
+        optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
+    )
+
+    samples_to_test = [
+            1278,
+            178,
+            18,
+            17,
+            278,
+            7278,
+            9278,
+            4275,
+            ]
+    for sample_id in samples_to_test:
+        predict_test_point(
+                data_index=sample_id,
+                x_test=x_test,
+                y_test=y_test,
+                loaded_model=loaded_model,
+                )
+
+if __name__ == "__main__":
+    main()

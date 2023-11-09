@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 import torch.optim as optim
 
@@ -22,19 +21,24 @@ class Net(nn.Module):
         x = self.fc3(x)
         return x
 
-net = Net()
-print(net)
 
-optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+def main() -> None:
+    net = Net()
+    print(net)
 
-# Print model's state_dict
-print("Model's state_dict:")
-for param_tensor in net.state_dict():
-    print(param_tensor, "\t", net.state_dict()[param_tensor].size())
+    optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-print()
+    # print model's state_dict
+    print("\nmodel's state_dict\n---")
+    for param_tensor in net.state_dict():
+        print(param_tensor, "\t", net.state_dict()[param_tensor].size())
+        # print(param_tensor, "\t", net.state_dict()[param_tensor])
 
-# Print optimizer's state_dict
-print("Optimizer's state_dict:")
-for var_name in optimizer.state_dict():
-    print(var_name, "\t", optimizer.state_dict()[var_name])
+    # print optimizer's state_dict
+    print("\noptimizer's state_dict\n---")
+    for var_name in optimizer.state_dict():
+        print(var_name, "\t", optimizer.state_dict()[var_name])
+
+
+if __name__ == "__main__":
+    main()

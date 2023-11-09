@@ -15,4 +15,5 @@ seaborn
 sklearn
 snakeviz
 termcolor
+tensorflow
 wikipedia

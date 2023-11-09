@@ -3,10 +3,10 @@ In this script a neural network tries to fit randomly generated data
 """
 # import plot_net
 import os
-import numpy as np
-import matplotlib.pyplot as plt
-from utils import prediction_error
 
+import matplotlib.pyplot as plt
+import numpy as np
+from utils import prediction_error
 
 # Hyperparameters
 HIDDEN_DIM = 3
@@ -16,18 +16,6 @@ NB_STEPS = 5000
 NB_PLOTTED_STEPS = 50
 # select the data
 NOISE_STD_DEV = 0.00
-
-
-def main() -> None:
-    # select the data
-    folder = "data"
-    x_train = np.load(os.path.join(folder, f"training_inputs_std_{NOISE_STD_DEV}.npy"))
-    y_train = np.load(os.path.join(folder, f"training_outputs_std_{NOISE_STD_DEV}.npy"))
-    x_test = np.load(os.path.join(folder, f"test_inputs_std_{NOISE_STD_DEV}.npy"))
-    y_test = np.load(os.path.join(folder, f"test_outputs_std_{NOISE_STD_DEV}.npy"))
-
-    # train
-    train_neural_net(x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test)
 
 
 def train_neural_net(
@@ -95,6 +83,7 @@ def train_neural_net(
             plt.pause(0.01)
 
             # ----------------------
+            # OPTIONAL
             # Print the network with gaphviz
             # plot_net.show_net(
             #     step,
@@ -140,6 +129,18 @@ def train_neural_net(
     plt.close("all")
     print("----")
     print(f"error on test set : {prediction_error(x_test, y_test, w1, w2)}")
+
+
+def main() -> None:
+    # select the data
+    folder = "data"
+    x_train = np.load(os.path.join(folder, f"training_inputs_std_{NOISE_STD_DEV}.npy"))
+    y_train = np.load(os.path.join(folder, f"training_outputs_std_{NOISE_STD_DEV}.npy"))
+    x_test = np.load(os.path.join(folder, f"test_inputs_std_{NOISE_STD_DEV}.npy"))
+    y_test = np.load(os.path.join(folder, f"test_outputs_std_{NOISE_STD_DEV}.npy"))
+
+    # train
+    train_neural_net(x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test)
 
 
 if __name__ == "__main__":

@@ -4,10 +4,10 @@ In this script a neural network tries to fit randomly generated data
 """
 # import plot_net
 import os
-import numpy as np
-import matplotlib.pyplot as plt
-from utils import prediction_error
 
+import matplotlib.pyplot as plt
+import numpy as np
+from utils import prediction_error
 
 # HYPERPARAMETERS
 batch_size, input_dim, hidden_dim, output_dim = 64, 20, 10, 1
@@ -16,16 +16,17 @@ Nb_steps = 50000
 Nb_plotted_steps = 20
 
 
-
 def fit_random_data(batch_size, input_dim, hidden_dim, output_dim):
     """
-        function creating random data and
-        a neural network learning
-        to predict the outputs
-        as a function of the inputs.
+    function creating random data and
+    a neural network learning
+    to predict the outputs
+    as a function of the inputs.
     """
 
-    figname = f"d_in_{input_dim}_d_out_{output_dim}_hidden_{hidden_dim}_rate_{Learning_rate}"
+    figname = (
+        f"d_in_{input_dim}_d_out_{output_dim}_hidden_{hidden_dim}_rate_{Learning_rate}"
+    )
     # directory where we will store results
     dir_name = "visualization/random_data/" + figname + "/"
 

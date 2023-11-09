@@ -1,7 +1,8 @@
-import numpy as np
-import os
-import ipdb
 import csv
+import os
+
+import ipdb
+import numpy as np
 
 # We will create artificial data to make a neural network try to learn them
 # However the data wont be random
