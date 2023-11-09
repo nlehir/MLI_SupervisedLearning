@@ -16,6 +16,7 @@ code/__pycache__/*
 code/.bash_history
 code/tags
 code/exercises/
+code/gradients/**/*.pdf
 
 code/cart/*/*.pdf
 
