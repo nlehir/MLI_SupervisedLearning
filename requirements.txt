@@ -12,7 +12,7 @@ pandas
 pandas
 pydot
 seaborn
-sklearn
+scikit-learn
 snakeviz
 tensorflow
 termcolor
