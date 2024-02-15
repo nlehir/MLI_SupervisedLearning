@@ -20,6 +20,7 @@ strict graph {
 	"Sergio Ramos" -- "David De Gea" [color=darkolivegreen4 penwidth=1.1]
 	"Sergio Ramos" -- "Kikyan Mbappé" [color=darkolivegreen4 penwidth=1.1]
 	"Sergio Ramos" -- "Mohammed Salah" [color=darkolivegreen4 penwidth=1.1]
+	"Sergio Ramos" -- "Mats Hummels" [color=darkolivegreen4 penwidth=1.1]
 	"Kikyan Mbappé" -- "Toni Kroos" [color=darkolivegreen4 penwidth=1.1]
 	"Kikyan Mbappé" -- "David De Gea" [color=darkolivegreen4 penwidth=1.1]
 	"Kikyan Mbappé" -- "Sergio Ramos" [color=darkolivegreen4 penwidth=1.1]
@@ -32,6 +33,7 @@ strict graph {
 	"Mohammed Salah" -- "Mats Hummels" [color=darkolivegreen4 penwidth=1.1]
 	"Mats Hummels" -- "Toni Kroos" [color=darkolivegreen4 penwidth=1.1]
 	"Mats Hummels" -- "David De Gea" [color=darkolivegreen4 penwidth=1.1]
+	"Mats Hummels" -- "Sergio Ramos" [color=darkolivegreen4 penwidth=1.1]
 	"Mats Hummels" -- "Kikyan Mbappé" [color=darkolivegreen4 penwidth=1.1]
 	"Mats Hummels" -- "Mohammed Salah" [color=darkolivegreen4 penwidth=1.1]
 	fontsize=20 label="threshold 3"
