@@ -67,8 +67,9 @@ def main():
 
     plt.plot(df.params_alpha, df.value, "o")
     plt.title("influence of the regularization parameter on th R2 score")
-    plt.xlabel("regularization constant")
+    plt.xlabel("regularization constant (alpha)")
     plt.ylabel("test r2")
+    plt.tight_layout()
     figpath = os.path.join("images", "regularization.pdf")
     plt.savefig(figpath)
     plt.close()
