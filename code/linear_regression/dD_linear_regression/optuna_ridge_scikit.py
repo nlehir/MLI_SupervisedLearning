@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import optuna
 import seaborn as sns
-from pandas.api.types import is_period_dtype
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split
+from utils import prediction_squared_error
 
 # load data
 X_path = os.path.join("data", "X.npy")
@@ -29,14 +29,6 @@ def objective(trial):
     https://optuna.org/
     """
     return 1
-
-
-def prediction_squared_error(estimator, X, y):
-    predictions = estimator.predict(X)
-    n_samples = X.shape[0]
-    error = predictions - y
-    return np.linalg.norm(error) ** 2 / n_samples
-
 
 def main():
     # database for the optuna dashboard

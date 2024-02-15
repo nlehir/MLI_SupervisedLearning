@@ -24,13 +24,13 @@ def main():
 
     # print the r2 score
     # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html#sklearn.metrics.r2_score
-    print(regressor.score(X, y))
+    print(f"r2 score: {regressor.score(X, y)}")
 
     # print theta
-    print(regressor.coef_)
+    print(f"{regressor.coef_=}")
 
     # print b
-    print(regressor.intercept_)
+    print(f"{regressor.intercept_=}")
 
     # predict on some new inputs
     print(regressor.predict(np.array([1, 2, -5, 25]).reshape(-1, 1)))

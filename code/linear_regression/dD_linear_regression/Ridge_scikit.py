@@ -8,6 +8,7 @@ import os
 import numpy as np
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split
+from utils import prediction_squared_error
 
 # from sklearn.model_selection import GridSearchCV
 
@@ -29,12 +30,6 @@ def main() -> None:
 
     # Fit inputs to outputs on train set
     estimator.fit(X_train, y_train)
-
-    def prediction_squared_error(estimator, X, y):
-        predictions = estimator.predict(X)
-        n_samples = X.shape[0]
-        error = predictions - y
-        return np.linalg.norm(error) ** 2 / n_samples
 
     print(f"train r2 score: {estimator.score(X_train, y_train)}")
     print(f"test r2 score: {estimator.score(X_test, y_test)}")

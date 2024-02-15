@@ -9,13 +9,7 @@ import os
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-
-
-def prediction_squared_error(estimator, X, y) -> float:
-    predictions = estimator.predict(X)
-    n_samples = X.shape[0]
-    error = predictions - y
-    return np.linalg.norm(error) ** 2 / n_samples
+from utils import prediction_squared_error
 
 
 def main() -> None:

@@ -8,17 +8,22 @@ def main():
     mean_noise = 0
     std_noise = 5
 
+    rng = np.random.default_rng()
+
     def bayes_predictor(x):
         return -3 * x + 150
 
+    n_samples = 300
+
     # temperature in degree
-    temperature = np.random.uniform(-5, 35, 300)
+    temperature = np.random.uniform(-5, 35, n_samples)
 
     # power consumption in MW
-    power_consumption = [
-        bayes_predictor(x) + np.random.normal(mean_noise, std_noise)
-        for x in temperature
-    ]
+    power_consumption = bayes_predictor(temperature) + rng.normal(
+            loc=mean_noise,
+            scale=std_noise,
+            size=n_samples,
+            )
     samples = np.column_stack((temperature, power_consumption))
 
     # plot dataset
