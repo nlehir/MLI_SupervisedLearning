@@ -12,8 +12,8 @@ from utils import prediction_error
 HIDDEN_DIM = 3
 LEARNING_RATE = 1e-5
 # plotting constants
-NB_STEPS = 5000
-NB_PLOTTED_STEPS = 50
+NB_ITERATIONS = 5000
+NB_PLOTTED_ITERATIONS = 50
 # select the data
 NOISE_STD_DEV = 0.00
 
@@ -41,10 +41,10 @@ def train_neural_net(
     w2 = np.random.randn(HIDDEN_DIM, output_dim)
 
     # we will store the loss as a function of the
-    # optimization step
+    # iteration
     losses = list()
-    steps = list()
-    for step in range(NB_STEPS):
+    iterations = list()
+    for step in range(NB_ITERATIONS):
         # forward pass
         # Prediction of the network for a given input x
         hh = x_train @ w1
@@ -57,26 +57,26 @@ def train_neural_net(
 
         # ----------------------
         # Plot the network and the loss
-        if step % (NB_STEPS / NB_PLOTTED_STEPS) == 0:
+        if step % (NB_ITERATIONS / NB_PLOTTED_ITERATIONS) == 0:
             # print("plot net")
             print(f"step: {step}, train loss: {loss:.2E}")
             graph_name = f"net_{step}"
 
-            # keep storing the loss and the steps
+            # keep storing the loss and the iterations
             losses.append(loss)
-            steps.append(step)
+            iterations.append(step)
 
             # Plot the evolution of the loss
             # We will not plot all the points
             scale = 5
-            printed_steps = [
-                steps[x[0]] for x in enumerate(losses) if x[1] < loss * scale
+            printed_iterations = [
+                iterations[x[0]] for x in enumerate(losses) if x[1] < loss * scale
             ]
             printed_losses = [x for x in losses if x < loss * scale]
-            plt.plot(printed_steps, printed_losses, "o")
+            plt.plot(printed_iterations, printed_losses, "o")
 
             # set the limits of the plots
-            plt.xlim([min(printed_steps) * 0.5, max(printed_steps) * 1.2 + 1])
+            plt.xlim([min(printed_iterations) * 0.5, max(printed_iterations) * 1.2 + 1])
             plt.ylim([0.2 * min(printed_losses), 1.5 * max(printed_losses)])
             plt.title("Loss function (square error)")
             plt.draw()
@@ -120,7 +120,7 @@ def train_neural_net(
 
     # save the plot of the loss function
     plt.close()
-    plt.plot(steps, losses)
+    plt.plot(iterations, losses)
     plt.title("Loss function (square error)")
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
