@@ -50,9 +50,10 @@ def main() -> None:
     plt.savefig("function_to_minimize_1.pdf")
 
     # initialize the optimization
+    rng = np.random.default_rng()
     scope = 25
-    x_iter = np.random.uniform(-scope, scope)
-    y_iter = np.random.uniform(-scope, scope)
+    x_iter = rng.uniform(low=-scope, high=scope)
+    y_iter = rng.uniform(low=-scope, high=scope)
 
     # iterate the gradient algorithm
     N_iterations = int(1e3)

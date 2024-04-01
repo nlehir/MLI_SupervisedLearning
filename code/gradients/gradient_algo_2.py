@@ -67,8 +67,9 @@ def main() -> None:
 
     # initialize the optimization
     scope = 30
-    x_iter = np.random.uniform(-scope, scope)
-    y_iter = np.random.uniform(-scope, scope)
+    rng = np.random.default_rng()
+    x_iter = rng.uniform(low=-scope, high=scope)
+    y_iter = rng.uniform(low=-scope, high=scope)
     N_iterations = 10000
 
     # set learning rate
