@@ -34,5 +34,3 @@ code/neural_networks/mnist/images/*.pdf
 code/neural_networks/with_numpy/**/*.pdf
 
 code/overfitting/images/*.pdf
-
-code/solutions/
