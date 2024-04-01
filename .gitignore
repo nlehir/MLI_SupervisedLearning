@@ -17,6 +17,7 @@ code/.bash_history
 code/tags
 code/exercises/
 code/gradients/**/*.pdf
+code/neural_networks/with_numpy/visualization//**/*.pdf
 
 code/cart/*/*.pdf
 
