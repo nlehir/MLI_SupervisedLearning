@@ -6,12 +6,12 @@ import numpy as np
 
 def main():
     mean_noise = 0
-    std_noise = 5
+    std_noise = 10
 
     rng = np.random.default_rng()
 
     def bayes_predictor(x):
-        return -3 * x + 150
+        return -3*x - (x/2)**2 + 150
 
     n_samples = 300
 
@@ -30,7 +30,7 @@ def main():
     plt.plot(temperature, power_consumption, "o", alpha=0.7)
     plt.xlabel("temperature (°C)")
     plt.ylabel("power_consumption (MW)")
-    plt.title("dataset")
+    plt.title("Temperature (°C) vs power consumption (MW)")
     plt.savefig("dataset.pdf")
 
     # save dataset
