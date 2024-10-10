@@ -1,7 +1,13 @@
+"""
+Use a previously trained model
+"""
+
+
 import matplotlib.pyplot as plt
 import os
 import numpy as np
-from keras.models import model_from_json
+from keras.models import load_model
+from keras.activations import *
 
 
 def predict_test_point(
@@ -47,15 +53,12 @@ def main() -> None:
     x_test = np.load("data/x_test.npy")
     x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
 
-    print("load the model")
-    json_file = open("model.json", "r")
-    loaded_model_json = json_file.read()
-    json_file.close()
-    loaded_model = model_from_json(loaded_model_json)
-    # load weights into new model
-    loaded_model.load_weights("model.h5")
+    loaded_model = load_model("trained_model.keras")
+
     loaded_model.compile(
-        optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
+        optimizer="adam",
+        loss="sparse_categorical_crossentropy",
+        metrics=["accuracy"]
     )
 
     samples_to_test = [

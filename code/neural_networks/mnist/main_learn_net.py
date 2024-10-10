@@ -1,14 +1,17 @@
-import os
+"""
+Define and optimize a neep neural network in order to solve the
+MNIST problem
 
+# adapted from this tutorial
+# https://towardsdatascience.com/image-classification-in-10-minutes-with-mnist-dataset-54c35b77a38d
+"""
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 from keras.layers import Conv2D, Dense, Dropout, Flatten, MaxPooling2D
 from keras.models import Sequential
-from tensorflow.keras.utils import plot_model
+# from tensorflow.keras.utils import plot_model
 
-# adapted from this tutorial
-# https://towardsdatascience.com/image-classification-in-10-minutes-with-mnist-dataset-54c35b77a38d
 
 def plot_datapoint(data_index: int, x_train: np.ndarray, y_train: np.ndarray) -> None:
     """
@@ -70,30 +73,42 @@ def main() -> None:
     # final layer for output prediction
     model.add(Dense(10, activation=tf.nn.softmax))
 
-    # visualize the neural network
-    plot_model(model, to_file="images/network.pdf")
-    plot_model(model, to_file="images/network_with_shapes.pdf", show_shapes=True)
+    """
+    visualize the neural network
+    2024-10-10: not working with tensorlow 2.15.0
+    """
+    # plot_model(model, to_file="images/network.pdf")
+    # plot_model(model, to_file="images/network_with_shapes.pdf", show_shapes=True)
 
-    # compile and fit the model
     print("\ncompile and fit the model")
+    # https://keras.io/api/models/model_training_apis/
     model.compile(
-        optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
+        optimizer="adam",
+        loss="sparse_categorical_crossentropy",
+        metrics=["accuracy"],
     )
-    model.fit(x=x_train, y=y_train, epochs=10)
+
+    model.fit(
+            x=x_train,
+            y=y_train,
+            batch_size=32,
+            epochs=10,
+            )
 
     # Evaluate the model
     print("\nevaluate the model")
     model.evaluate(x_test, y_test)
 
 
+    model.save("trained_model.keras")
     # save the model to a json file
-    print("\nsave the model")
-    model_json = model.to_json()
-    with open("model.json", "w") as json_file:
-        json_file.write(model_json)
+    # print("\nsave the model")
+    # model_json = model.to_json()
+    # with open("model.json", "w") as json_file:
+    #     json_file.write(model_json)
 
-    # serialize weights to HDF5
-    model.save_weights("model.h5")
+    # # serialize weights to HDF5
+    # model.save_weights("model.weights.h5")
 
 if __name__ == "__main__":
     main()

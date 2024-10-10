@@ -41,3 +41,5 @@ project/ex_4_regression_windfarm/*.pdf
 project/ex_4_regression_windfarm/*.py
 project/ex_4_regression_windfarm/*.db
 project/ex_4_regression_windfarm/*.npy
+
+code/neural_networks/mnist/trained_model.keras
