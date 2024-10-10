@@ -27,10 +27,10 @@ def outside(threshold):
     return xpos, ypos
 
 xposin, yposin = inside(1)
-plt.plot(xposin, yposin, "o", alpha = 0.5, color="skyblue", label = "class 1")
+plt.plot(xposin, yposin, "o", alpha = 0.5, color="skyblue", label = "class 0")
 
 xposout, yposout = outside(1.1)
-plt.plot(xposout, yposout, "o", alpha = 0.5, color = "mediumblue", label = "class 2")
+plt.plot(xposout, yposout, "o", alpha = 0.5, color = "mediumblue", label = "class 1")
 
 plt.xlabel("x")
 plt.ylabel("y")
