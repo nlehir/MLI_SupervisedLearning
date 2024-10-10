@@ -136,9 +136,8 @@ def process_dataset(dataset) -> None:
 
     # preprocess the data
     # this could also be done using pipelines
-    X_total = np.concatenate((X_train, X_test))
     scaler = StandardScaler()
-    scaler.fit(X_total)
+    scaler.fit(X_train)
     X_train = scaler.transform(X_train)
     X_test = scaler.transform(X_test)
     print(f"mean of dataset: {scaler.mean_}")
