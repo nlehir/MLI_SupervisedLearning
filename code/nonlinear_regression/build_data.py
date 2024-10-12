@@ -1,37 +1,42 @@
-import math
-
-import matplotlib.pyplot as plt
 import numpy as np
 
-nb_points = 10000
+from constants import (
+       NOISE_STD,
+       SAMPLING_RATE,
+       FREQUENCY,
+       NB_PERIODS,
+       SIGNAL_PERIOD,
+       AMPLITUDE,
+       OFFSET,
+       INITIAL_PHASE,
+        )
 
-# noise standard deviation
-noise_std = 0.5
+def real_function(
+        time,
+        noise_std=0.0,
+        ):
+    pulsation = 2 * np.pi * FREQUENCY
+    sine_waveform = AMPLITUDE * np.sin(INITIAL_PHASE + time * pulsation)
+    sine_waveform += AMPLITUDE / 2 * np.sin(INITIAL_PHASE + time * pulsation / 3)
+    noise = np.random.normal(0, noise_std, sine_waveform.shape)
+    tide_level = sine_waveform + noise + OFFSET
+    return tide_level
 
-# amplitude in meters
-amplitude = 15
 
-# beginning and end of experiment in hours
-start_time = 0
-end_time = 96
-step = (end_time - start_time) / nb_points
+def make_data():
+    # measurement time in hours
+    step = 1/SAMPLING_RATE
+    time = np.arange(
+            start=0,
+            stop=NB_PERIODS * SIGNAL_PERIOD+step,
+            step=step,
+            )
 
-# measurement times in hours
-times = np.arange(start_time, end_time, step)
+    tide_level = real_function(
+            time=time,
+            noise_std=NOISE_STD,
+            )
 
-period = 7
-frequence = 1 / period
-pulsation = 2 * math.pi * frequence
-
-sine_waveform = np.sin(times * pulsation)
-
-noise = np.random.normal(0, noise_std, sine_waveform.shape)
-
-offset = 5
-
-# noisy measurements
-tide_level = sine_waveform + noise + offset
-
-data = np.column_stack((times, tide_level))
-
-np.savetxt("data.csv", data, delimiter=",")
+    print(f"{FREQUENCY=} Hz")
+    print(f"{SAMPLING_RATE=} Hz")
+    return time, tide_level
