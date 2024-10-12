@@ -16,11 +16,13 @@ def main() -> None:
     data_path = os.path.join("data", "samples.npy")
     data = np.load(data_path)
 
+    rng = np.random.default_rng()
+
     best_empirical_risk = 10e12
 
     for test_id in range(n_tests):
-        theta = np.random.uniform(-100, 100)
-        b = np.random.uniform(-100, 100)
+        theta = rng.uniform(-100, 100)
+        b = rng.uniform(-100, 100)
         empirical_risk_ = empirical_risk(theta, b, data)
         if empirical_risk_ < best_empirical_risk:
             best_empirical_risk = empirical_risk_
