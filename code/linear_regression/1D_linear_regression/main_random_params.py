@@ -19,11 +19,17 @@ def main() -> None:
     rng = np.random.default_rng()
 
     best_empirical_risk = 10e12
+    best_theta = 0
+    best_b = 0
 
     for test_id in range(n_tests):
         theta = rng.uniform(-100, 100)
         b = rng.uniform(-100, 100)
-        empirical_risk_ = empirical_risk(theta, b, data)
+        empirical_risk_ = empirical_risk(
+                theta=theta,
+                b=b,
+                data=data,
+                )
         if empirical_risk_ < best_empirical_risk:
             best_empirical_risk = empirical_risk_
             best_theta = theta

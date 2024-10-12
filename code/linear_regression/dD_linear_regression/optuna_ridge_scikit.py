@@ -58,21 +58,21 @@ def main():
     df = study.trials_dataframe()
 
     # analyze the hyperparameters
-    sns.boxplot(data=df, x="params_solver", y="value")
-    plt.title("influence of the solver on the final R2 score")
-    plt.ylabel("test r2")
-    figpath = os.path.join("images", "solver.pdf")
-    plt.savefig(figpath)
-    plt.close()
+    # sns.boxplot(data=df, x="params_solver", y="value")
+    # plt.title("influence of the solver on the final R2 score")
+    # plt.ylabel("test r2")
+    # figpath = os.path.join("images", "solver.pdf")
+    # plt.savefig(figpath)
+    # plt.close()
 
-    plt.plot(df.params_alpha, df.value, "o")
-    plt.title("influence of the regularization parameter on th R2 score")
-    plt.xlabel("regularization constant (alpha)")
-    plt.ylabel("test r2")
-    plt.tight_layout()
-    figpath = os.path.join("images", "regularization.pdf")
-    plt.savefig(figpath)
-    plt.close()
+    # plt.plot(df.params_alpha, df.value, "o")
+    # plt.title("influence of the regularization parameter on th R2 score")
+    # plt.xlabel("regularization constant (alpha)")
+    # plt.ylabel("test r2")
+    # plt.tight_layout()
+    # figpath = os.path.join("images", "regularization.pdf")
+    # plt.savefig(figpath)
+    # plt.close()
 
 
 if __name__ == "__main__":

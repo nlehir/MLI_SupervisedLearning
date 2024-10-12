@@ -1,6 +1,8 @@
 """
 Perform a ridge regression
 (regularization of OLS)
+
+    https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html
 """
 
 import os
