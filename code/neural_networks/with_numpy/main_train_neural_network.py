@@ -6,7 +6,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
-from utils import prediction_error
+from utils import mean_squared_error
 
 # Hyperparameters
 HIDDEN_DIM = 3
@@ -32,9 +32,6 @@ def train_neural_net(
     input_dim = x_train.shape[1]
     output_dim = y_train.shape[1]
 
-    # directory where we will store results
-    figname = f"loss_fun_d_in_{input_dim}_d_out_{output_dim}_hidden_{HIDDEN_DIM}_std_{NOISE_STD_DEV}_rate_{LEARNING_RATE}.pdf"
-    fig_path = os.path.join("images", figname)
 
     # Randomly initialize weights
     rng = np.random.default_rng()
@@ -43,7 +40,7 @@ def train_neural_net(
 
     # we will store the loss as a function of the
     # iteration
-    losses = list()
+    MSE_losses = list()
     iterations = list()
     for iteration in range(NB_ITERATIONS):
         # forward pass
@@ -53,26 +50,26 @@ def train_neural_net(
         y_pred = h_relu @ w2
 
         # loss function
-        # Here we use the squared error loss
-        loss = np.square(y_pred - y_train).sum()
+        # Here we use the mean squared error (MSE) loss
+        MSE = np.square(y_pred - y_train).sum() / len(y_train)
 
         # ----------------------
         # Plot the network and the loss
         if iteration % (NB_ITERATIONS / NB_PLOTTED_ITERATIONS) == 0:
             # print("plot net")
-            print(f"iteration: {iteration}, train loss: {loss:.2E}")
+            print(f"iteration: {iteration}, train MSE: {MSE:.2E}")
 
-            # keep storing the loss and the iterations
-            losses.append(loss)
+            # keep storing the MSE loss and the iterations
+            MSE_losses.append(MSE)
             iterations.append(iteration)
 
-            # Plot the evolution of the loss
+            # Plot the evolution of the MSE loss
             # We will not plot all the points
             scale = 5
             printed_iterations = [
-                iterations[x[0]] for x in enumerate(losses) if x[1] < loss * scale
+                iterations[x[0]] for x in enumerate(MSE_losses) if x[1] < MSE * scale
             ]
-            printed_losses = [x for x in losses if x < loss * scale]
+            printed_losses = [x for x in MSE_losses if x < MSE * scale]
             plt.plot(printed_iterations, printed_losses, "o")
 
             # set the limits of the plots
@@ -104,14 +101,9 @@ def train_neural_net(
         w1 -= LEARNING_RATE * grad_w1
         w2 -= LEARNING_RATE * grad_w2
 
-        # test_error = prediction_error(x_test, y_test, w1, w2)
-        # train_error = prediction_error(x_train, y_train, w1, w2)
-        # if test_error > 2 * train_error:
-        #     __import__("ipdb").set_trace()
-
     # save the plot of the loss function
     plt.close()
-    plt.plot(iterations, losses)
+    plt.plot(iterations, MSE_losses)
     title = (
         "Loss function (squared error)\n"
         f"{HIDDEN_DIM} hidden neurons\n"
@@ -122,11 +114,14 @@ def train_neural_net(
     plt.ylabel("squared error")
     plt.yscale("log")
     plt.tight_layout()
+    figname = f"loss_fun_d_in_{input_dim}_d_out_{output_dim}_hidden_{HIDDEN_DIM}_std_{NOISE_STD_DEV}_rate_{LEARNING_RATE}.pdf"
+    fig_path = os.path.join("images", figname)
     plt.savefig(fig_path)
     plt.show()
     plt.close("all")
     print("----")
-    print(f"error on test set : {prediction_error(x_test, y_test, w1, w2)}")
+    print(f"MSE on test set : {mean_squared_error(x_test, y_test, w1, w2)}")
+    print(f"MSE on train set : {mean_squared_error(x_train, y_train, w1, w2)}")
 
 
 def main() -> None:
