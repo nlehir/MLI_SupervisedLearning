@@ -6,12 +6,10 @@
 
 import math
 
-from typing import Callable
 from build_data import real_function
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.integrate._ivp.radau import TI
 import scipy.optimize
 from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
@@ -25,10 +23,11 @@ from constants import (
         INITIAL_PHASE,
         NB_PERIODS,
         NOISE_STD,
+        DUPPLICATION_FACTOR,
         )
 from build_data import make_data
 
-TITLE_FONTSIZE = 8
+FONTSIZE = 7
 FIG_SIZE = (12, 9)
 
 
@@ -45,10 +44,6 @@ def analyze_signal(
         ax2,
         ax3,
         ) -> np.ndarray:
-    """
-    function used to fit a sinusoidal function to the data.
-    """
-
     time_spacing = time[1] - time[0] # hours
     sampling_rate = 1 / time_spacing
     nb_samples = len(time)
@@ -76,8 +71,8 @@ def analyze_signal(
     guess_freq = abs(sample_frequencies[np.argmax(np.abs(fourier_transform[1:])) + 1])
 
     title = (
+        f"sampling rate: {SAMPLING_RATE_FACTOR} frequency ({sampling_rate:.5f} samples per hour)\n"
         f"signal period: {SIGNAL_PERIOD} hours, frequency: {FREQUENCY:.5f} cycles per hour\n"
-        f"sampling rate: {SAMPLING_RATE_FACTOR} X frequency ({sampling_rate:.5f} samples per hour)\n"
         f"number of samples: {nb_samples}, "
         f"{NB_PERIODS} periods\n"
         f"df: {frequency_spacing:.5f}, "
@@ -95,7 +90,7 @@ def analyze_signal(
         f"initial phase: {INITIAL_PHASE * 180 / np.pi} °, "
         f"noise: {NOISE_STD}\n"
     )
-    fig.suptitle(title, fontsize=TITLE_FONTSIZE)
+    fig.suptitle(title, fontsize=FONTSIZE)
 
     time_linspace = np.linspace(
             start=min(time),
@@ -121,10 +116,10 @@ def analyze_signal(
             label="real function",
             color="blue"
             )
-    ax1.set_ylabel("Tide level (m)", fontsize=TITLE_FONTSIZE)
-    ax1.set_xlabel("Time (hours)", fontsize=TITLE_FONTSIZE)
-    ax1.legend(loc="best")
-    ax1.set_title("Raw signal", fontsize=TITLE_FONTSIZE)
+    ax1.set_ylabel("Tide level (m)", fontsize=FONTSIZE)
+    ax1.set_xlabel("Time (hours)", fontsize=FONTSIZE)
+    ax1.legend(loc="best", fontsize=FONTSIZE)
+    ax1.set_title("Raw signal", fontsize=FONTSIZE)
 
     ax2.plot(
             sample_frequencies,
@@ -143,41 +138,28 @@ def analyze_signal(
             alpha=0.7,
             label="imag",
             )
-    ax2.set_xlabel("Frequency (Cycles per hour)", fontsize=TITLE_FONTSIZE)
-    ax2.set_ylabel("Fourier transform modulus", fontsize=TITLE_FONTSIZE)
-    ax2.legend(loc="best")
+    ax2.set_xlabel("Frequency (Cycles per hour)", fontsize=FONTSIZE)
+    ax2.set_ylabel("Fourier transform modulus", fontsize=FONTSIZE)
+    ax2.legend(loc="best", fontsize=FONTSIZE)
     ax2.set_yscale("log")
     title = (
         "Fourier transform modulus\n"
         f"Most present freq: {guess_freq:.5f} cycles per hour\n"
         f"Period: {1/guess_freq:.5f} Hours"
     )
-    ax2.set_title(title, fontsize=TITLE_FONTSIZE)
+    ax2.set_title(title, fontsize=FONTSIZE)
 
-    # dupplicated_fft = 
     reconstruction = np.fft.ifft(
             a=fourier_transform,
             n=nb_samples,
             )
     difference_norm = np.linalg.norm(reconstruction-tide_level)
 
-    # extended_time = np.arange(
-    #         start=0,
-    #         stop=max(time),
-    #         step=extended_dt,
-    #         )
-
-    # fourier_transform_extended = fourier_transform
-    # for index in range(dupplication_factor-1):
-    #     fourier_transform_extended = np.hstack((fourier_transform_extended, fourier_transform))
-
-    dupplication_factor = 5
-    extended_dt = time_spacing / dupplication_factor
     """
     Respect the numpy convention of the sorting
     """
     fourier_transform_padded = np.zeros(
-            shape=nb_samples + (dupplication_factor-1)*(nb_samples-1),
+            shape=nb_samples + (DUPPLICATION_FACTOR-1)*(nb_samples-1),
             dtype=np.complex64,
             )
     fourier_transform_padded[:nb_samples//2] = fourier_transform[:nb_samples//2]
@@ -186,14 +168,15 @@ def analyze_signal(
     """
     Probably a normalization involved: TODO: double check
     """
-    reconstruction_extended = dupplication_factor * np.fft.ifft(
+    reconstruction_extended = DUPPLICATION_FACTOR * np.fft.ifft(
             a=fourier_transform_padded,
             )
 
-    extended_time = np.arange(
+    extended_time = np.linspace(
             start=0,
-            stop=max(time)+extended_dt,
-            step=extended_dt,
+            stop=max(time),
+            num=len(reconstruction_extended),
+            endpoint=True,
             )
 
     ax3.plot(time, tide_level, "o", label="raw signal", markersize=5, alpha=0.2)
@@ -203,14 +186,23 @@ def analyze_signal(
     """
     ax3.plot(time, reconstruction.real, "o", label="reconstruction", markersize=5, alpha=0.7)
     ax3.plot(extended_time, reconstruction_extended.real, "o", label="reconstruction extended", markersize=5, alpha=0.2)
-    ax3.legend(loc="best")
-    ax3.set_xlabel("Time (hours)", fontsize=TITLE_FONTSIZE)
-    ax3.set_ylabel("Tide level (hours)", fontsize=TITLE_FONTSIZE)
+    tide_real = real_function(time=time_linspace)
+    ax3.plot(
+            time_linspace,
+            tide_real,
+            markersize=5,
+            alpha=0.3,
+            label="real function",
+            color="blue"
+            )
+    ax3.legend(loc="best", fontsize=FONTSIZE)
+    ax3.set_xlabel("Time (hours)", fontsize=FONTSIZE)
+    ax3.set_ylabel("Tide level (hours)", fontsize=FONTSIZE)
     title = (
         "Reconstructed signal\n"
         f"Difference: {difference_norm:.3E}"
             )
-    ax3.set_title(title, fontsize=TITLE_FONTSIZE)
+    ax3.set_title(title, fontsize=FONTSIZE)
 
 
     guess_amp = np.std(tide_level) * 2.0**0.5
@@ -257,8 +249,8 @@ def main():
     """
     plt.plot(time, tide_level, "o", markersize=4, alpha=0.4)
     plt.title("tide level as a function of time")
-    plt.xlabel("time (hours)", fontsize=TITLE_FONTSIZE)
-    plt.ylabel("tide level (meters)", fontsize=TITLE_FONTSIZE)
+    plt.xlabel("time (hours)", fontsize=FONTSIZE)
+    plt.ylabel("tide level (meters)", fontsize=FONTSIZE)
     plt.savefig("tide_level.pdf")
     plt.close()
 
@@ -308,7 +300,7 @@ def main():
         markersize=1,
         alpha=0.5,
     )
-    ax4.legend(loc="best")
+    ax4.legend(loc="best", fontsize=FONTSIZE)
     title = (
         "found parameters: "
         f"amplitude = {returned_dict['amplitude']:.3f} m, "
@@ -320,10 +312,10 @@ def main():
             )
     ax4.set_title(
             label=title,
-            fontsize=TITLE_FONTSIZE,
+            fontsize=FONTSIZE,
     )
-    ax4.set_xlabel("time (hours)", fontsize=TITLE_FONTSIZE)
-    ax4.set_ylabel("tide level (meters)", fontsize=TITLE_FONTSIZE)
+    ax4.set_xlabel("time (hours)", fontsize=FONTSIZE)
+    ax4.set_ylabel("tide level (meters)", fontsize=FONTSIZE)
 
     plt.tight_layout()
     fig_name = f"fourier_transform_sampling_{SAMPLING_RATE_FACTOR:.1f}_freq_{NB_PERIODS}_periods_noise_std_{NOISE_STD}"
