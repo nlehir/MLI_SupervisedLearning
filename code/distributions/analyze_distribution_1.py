@@ -44,7 +44,6 @@ plt.title(title)
 plt.xlabel("value")
 plt.ylabel("nb of occurrences")
 plt.savefig(f"images/distribution_1_hist_{nbins}_bins.pdf")
-plt.savefig(f"images/distribution_1_hist_{nbins}_bins.png")
 plt.close()
 
 """
