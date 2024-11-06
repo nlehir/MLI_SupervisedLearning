@@ -44,3 +44,5 @@ project/ex_4_regression_windfarm/*.npy
 
 code/neural_networks/mnist/trained_model.keras
 code/cart/iris/iris_max_depth_3
+
+code/nonlinear_regression/Mthieu.ipynb
