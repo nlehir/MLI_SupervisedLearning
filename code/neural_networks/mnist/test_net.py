@@ -41,12 +41,11 @@ def predict_test_point(
         print(f"-- ! wrong prediction: {predicted_label} instead of {true_label}")
         title = f"testing point: {data_index}\ntrue label: {true_label}\npredicted label: {predicted_label}\nMISTAKE"
 
-    # print the result
-    image = x_test[data_index][:, :, 0]
-    plt.imshow(image, cmap="Greys")
-    plt.title(title)
-    plt.savefig(os.path.join("images", f"prediction_{data_index}.pdf"))
-    plt.close()
+        image = x_test[data_index][:, :, 0]
+        plt.imshow(image, cmap="Greys")
+        plt.title(title)
+        plt.savefig(os.path.join("images", f"prediction_{data_index}.pdf"))
+        plt.close()
 
 def main() -> None:
     y_test = np.load("data/y_test.npy")
@@ -61,16 +60,7 @@ def main() -> None:
         metrics=["accuracy"]
     )
 
-    samples_to_test = [
-            1278,
-            178,
-            18,
-            17,
-            278,
-            7278,
-            9278,
-            4275,
-            ]
+    samples_to_test = np.arange(1, 1000)
     for sample_id in samples_to_test:
         predict_test_point(
                 data_index=sample_id,

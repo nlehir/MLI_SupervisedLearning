@@ -70,7 +70,14 @@ def train_neural_net(
                 iterations[x[0]] for x in enumerate(MSE_losses) if x[1] < MSE * scale
             ]
             printed_losses = [x for x in MSE_losses if x < MSE * scale]
-            plt.plot(printed_iterations, printed_losses, "o")
+            plt.plot(
+                    printed_iterations,
+                    printed_losses,
+                    "o",
+                    alpha=0.5,
+                    color="blue",
+                    )
+            plt.yscale("log")
 
             # set the limits of the plots
             plt.xlim([min(printed_iterations) * 0.5, max(printed_iterations) * 1.2 + 1])

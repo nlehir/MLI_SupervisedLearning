@@ -23,7 +23,7 @@ def main() -> None:
     bbox = dict(boxstyle="circle", fc="b", alpha=0.2)
     x = X_START
     for it in range(N_ITER):
-        print(f"iter: {it}")
+        print(f"\niteration: {it}")
         y = func(x)
         # plot the current iterate
         plt.annotate(text=f"{it}", xy=(x,y), bbox=bbox)

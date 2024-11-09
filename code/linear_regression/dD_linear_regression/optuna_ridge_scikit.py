@@ -20,10 +20,21 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
 
 def objective(trial):
     """
-    Objective function
+    Objective function:
+        Generate a set of hyperparameters, fit a ridge regressor
+        on the train set using this set of parameters, and return the 
+        r2 score on the test set.
 
-    This function should return the r2 score on the test set,
-    after fitting a ridge estimator with a given set of hyperparameters.
+        Note that using only a train / test dataset splitting strategy is not
+        always the best approach, and one might need to use a validation set,
+        or even cross-validation. However, cross-validation requires more
+        computation time (see the class). hence the most relevant approach
+        always depends on the context.
+
+    The quantity returned by this function (here, the r2 score on the test set) will depend on
+    the hyperparameters, that will be generated inside the function itsself.
+    Optuna handles the hyperparameter generation process and uses the final
+    score in order to choose which hyperparameter values to try next.
 
     Fix this function by using the optuna API.
     https://optuna.org/
