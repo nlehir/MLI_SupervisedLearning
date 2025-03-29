@@ -10,13 +10,13 @@ from utils import mean_squared_error, nn_r2
 from sklearn.metrics import r2_score
 
 # Hyperparameters
-HIDDEN_DIM = 3
+HIDDEN_DIM = 6
 LEARNING_RATE = 1e-7
 # plotting constants
 NB_ITERATIONS = 50000
 NB_PLOTTED_ITERATIONS = 100
 # select the data
-NOISE_STD_DEV = 0.00
+NOISE_STD_DEV = 1
 
 
 def train_neural_net(
@@ -92,6 +92,7 @@ def train_neural_net(
                 # "Loss function (squared loss)\n"
                 "Train R2\n"
                 f"{HIDDEN_DIM} hidden neurons\n"
+                f"noise std: {NOISE_STD_DEV:.3f}\n"
                 f"train R2: {R2_train_list[-1]:.3f}\n"
                 f"learning rate: {LEARNING_RATE}"
                     )
@@ -137,13 +138,15 @@ def train_neural_net(
         # "Loss function (squared error)\n"
         f"Train R2\n"
         f"{HIDDEN_DIM} hidden neurons\n"
+        f"noise std: {NOISE_STD_DEV:.3f}\n"
         f"Final train R2 {final_train_R2:.3f}\n"
         f"Final test R2 {final_test_R2:.3f}\n"
         f"learning rate: {LEARNING_RATE}"
             )
     plt.title(title)
     plt.xlabel("iteration")
-    plt.ylabel("squared error")
+    # plt.ylabel("squared error")
+    plt.ylabel("Train R2")
     plt.yscale("log")
     plt.tight_layout()
     figname = f"loss_fun_d_in_{input_dim}_d_out_{output_dim}_hidden_{HIDDEN_DIM}_std_{NOISE_STD_DEV}_rate_{LEARNING_RATE}.pdf"
